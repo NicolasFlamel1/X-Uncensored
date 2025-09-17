@@ -2,7 +2,7 @@
 	"name": "__MSG_name__",
 	"short_name": "__MSG_shortName__",
 	"description": "__MSG_description__",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"manifest_version": 3,
 	"default_locale": "en_US",
 	"icons": {
@@ -20,6 +20,7 @@
 		"180": "./images/icon_180x180.png",
 		"192": "./images/icon_192x192.png",
 		"256": "./images/icon_256x256.png",
+		"384": "./images/icon_384x384.png",
 		"512": "./images/icon_512x512.png",
 		"1024": "./images/icon_1024x1024.png"
 	},

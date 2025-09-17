@@ -1,1 +1,1 @@
-powershell Compress-Archive \"./X Uncensored/Resources/*\" \"./X Uncensored.zip\"
+powershell Compress-Archive \"./X Uncensored/Resources/*\" \"./X Uncensored.zip\" -Force

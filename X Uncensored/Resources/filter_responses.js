@@ -52,30 +52,44 @@
 							// Check if request is to a GraphQL API
 							if(resource.toString().indexOf("/api/graphql/") !== -1) {
 							
-								// Return parsing response as JSON
-								return response.clone().json().then(function(json) {
+								// Return getting response as text
+								return response.clone().text().then(function(responseText) {
 								
 									// Try
 									try {
 									
-										// Remove media visibility results from the JSON
-										removeMediaVisibilityResults(json);
+										// Check if the response contains media visibility results
+										if(responseText.indexOf("mediaVisibilityResults") !== -1) {
 										
-										// Get string from the JSON
-										var string = JSON.stringify(json);
-										
-										// Resolve response with the string
-										resolve(new Response(string, {
-										
-											// Status
-											status: response.status,
+											// Parse response as JSON
+											var json = JSON.parse(responseText);
 											
-											// Status text
-											statusText: response.statusText,
+											// Remove media visibility results from the JSON
+											removeMediaVisibilityResults(json);
 											
-											// Headers
-											headers: response.headers
-										}));
+											// Get string from the JSON
+											var string = JSON.stringify(json);
+											
+											// Resolve response with the string
+											resolve(new Response(string, {
+											
+												// Status
+												status: response.status,
+												
+												// Status text
+												statusText: response.statusText,
+												
+												// Headers
+												headers: response.headers
+											}));
+										}
+										
+										// Otherwise
+										else {
+										
+											// Resolve response
+											resolve(response);
+										}
 									}
 									
 									// Catch errors
@@ -115,12 +129,12 @@
 		// Check if XML HTTP request and XML HTTP request open exist
 		if(typeof window === "object" && window !== null && typeof window.XMLHttpRequest === "function" && typeof window.XMLHttpRequest.prototype === "object" && window.XMLHttpRequest.prototype !== null && typeof window.XMLHttpRequest.prototype.open === "function") {
 		
-			// Replace XML HTTP request
-			var originalXMLHttpRequest = window.XMLHttpRequest;
+			// Replace window XML HTTP request
+			var originalWindowXMLHttpRequest = window.XMLHttpRequest;
 			window.XMLHttpRequest = function(options) {
 			
-				// Perform original XML HTTP request
-				var request = new originalXMLHttpRequest(options);
+				// Perform original window XML HTTP request
+				var request = new originalWindowXMLHttpRequest(options);
 				
 				// Try
 				try {
@@ -134,8 +148,8 @@
 						// Try
 						try {
 						
-							// Check if request is complete and removing media visibility results from its response
-							if(this.readyState === 4 && this._removeMediaVisibilityResultsFromResponse === true) {
+							// Check if request is complete, removing media visibility results from its response, and the response contains media visibility results
+							if(this.readyState === 4 && this._removeMediaVisibilityResultsFromResponse === true && this.responseText.indexOf("mediaVisibilityResults") !== -1) {
 							
 								// Parse response as JSON
 								var json = JSON.parse(this.responseText);
@@ -179,9 +193,9 @@
 				return request;
 			};
 			
-			// Replace XML HTTP request open
-			window.XMLHttpRequest.prototype = originalXMLHttpRequest.prototype;
-			var originalXMLHttpRequestOpen = window.XMLHttpRequest.prototype.open;
+			// Replace window XML HTTP request open
+			window.XMLHttpRequest.prototype = originalWindowXMLHttpRequest.prototype;
+			var originalWindowXMLHttpRequestOpen = window.XMLHttpRequest.prototype.open;
 			window.XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
 			
 				// Try
@@ -196,8 +210,8 @@
 				
 				}
 				
-				// Perform original XML HTTP request open
-				originalXMLHttpRequestOpen.call(this, method, url, (typeof async !== "undefined") ? async : true, (typeof user !== "undefined") ? user : null, (typeof password !== "undefined") ? password : null);
+				// Perform original window XML HTTP request open
+				originalWindowXMLHttpRequestOpen.call(this, method, url, (typeof async !== "undefined") ? async : true, (typeof user !== "undefined") ? user : null, (typeof password !== "undefined") ? password : null);
 			};
 		}
 	}
