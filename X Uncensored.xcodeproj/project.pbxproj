@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A3C1E2B2E7DF3D2003E2E60 /* service_worker.js in Resources */ = {isa = PBXBuildFile; fileRef = 0A3C1E2A2E7DF3D2003E2E60 /* service_worker.js */; };
 		0A83DF40283CE4A600811721 /* content_script.js in Resources */ = {isa = PBXBuildFile; fileRef = 0A83DF32283CE4A500811721 /* content_script.js */; };
 		0A83DF42283CE4A600811721 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 0A83DF34283CE4A500811721 /* manifest.json */; };
 		0A83DF44283CE4A600811721 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 0A83DF36283CE4A500811721 /* images */; };
@@ -49,6 +50,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A3C1E2A2E7DF3D2003E2E60 /* service_worker.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = service_worker.js; sourceTree = "<group>"; };
 		0A83DF32283CE4A500811721 /* content_script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = content_script.js; sourceTree = "<group>"; };
 		0A83DF34283CE4A500811721 /* manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
 		0A83DF36283CE4A500811721 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 		0AB3FCD22818F8C400502C3C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0A3C1E2A2E7DF3D2003E2E60 /* service_worker.js */,
 				0A9695C52E77B880000976B4 /* filter_responses.js */,
 				0A83DF37283CE4A500811721 /* _locales */,
 				0A83DF32283CE4A500811721 /* content_script.js */,
@@ -247,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A3C1E2B2E7DF3D2003E2E60 /* service_worker.js in Resources */,
 				0A83DF45283CE4A600811721 /* _locales in Resources */,
 				0A83DF44283CE4A600811721 /* images in Resources */,
 				0A83DF40283CE4A600811721 /* content_script.js in Resources */,
@@ -442,7 +446,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.X-Uncensored.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.X-Uncensored.Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -472,7 +476,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.X-Uncensored.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.X-Uncensored.Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -510,7 +514,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.X-Uncensored;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.X-Uncensored";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -547,7 +551,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.X-Uncensored;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.X-Uncensored";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

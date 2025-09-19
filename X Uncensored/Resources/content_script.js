@@ -25,12 +25,12 @@ try {
 			event.stopImmediatePropagation();
 			
 			// Remove Filter responses
-			filterResponses.remove();
+			this.remove();
 			
 		}, true);
 		
 		// Add filter responses to site
-		document.head.appendChild(filterResponses);
+		document.documentElement.prepend(filterResponses);
 	}
 }
 

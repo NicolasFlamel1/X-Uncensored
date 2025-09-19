@@ -11,12 +11,16 @@
 	injectContentScript();
 });
 
-// Management enabled event
-((typeof chrome !== "undefined") ? chrome : browser).management.onEnabled.addListener(function() {
+// Check if management exists
+if(typeof ((typeof chrome !== "undefined") ? chrome : browser).management !== "undefined") {
 
-	// Inject content script
-	injectContentScript();
-});
+	// Management enabled event
+	((typeof chrome !== "undefined") ? chrome : browser).management.onEnabled.addListener(function() {
+	
+		// Inject content script
+		injectContentScript();
+	});
+}
 
 
 // Supporting function implementation
@@ -59,7 +63,10 @@ function injectContentScript() {
 					
 						// Content script
 						"./content_script.js"
-					]
+					],
+					
+					// Inject immediately
+					injectImmediately: true
 				
 				// Catch errors
 				}).catch(function(error) {
