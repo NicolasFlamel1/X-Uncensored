@@ -2,7 +2,7 @@
 	"name": "__MSG_name__",
 	"short_name": "__MSG_shortName__",
 	"description": "__MSG_description__",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"manifest_version": 3,
 	"default_locale": "en_US",
 	"icons": {
@@ -24,6 +24,16 @@
 		"512": "./images/icon_512x512.png",
 		"1024": "./images/icon_1024x1024.png"
 	},
+	"permissions": [
+		"scripting",
+		"management"
+	],
+	"background": {
+		"service_worker": "./service_worker.js",
+		"scripts": [
+			"./service_worker.js"
+		]
+	},
 	"content_scripts": [
 		{
 			"matches": [
@@ -43,5 +53,8 @@
 				"filter_responses.js"
 			]
 		}
+	],
+	"host_permissions": [
+		"https://x.com/*"
 	]
 }
