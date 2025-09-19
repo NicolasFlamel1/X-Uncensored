@@ -131,6 +131,7 @@
 		
 			// Replace window XML HTTP request
 			var originalWindowXMLHttpRequest = window.XMLHttpRequest;
+			var filterResponse = new Set();
 			window.XMLHttpRequest = function(options) {
 			
 				// Perform original window XML HTTP request
@@ -139,40 +140,44 @@
 				// Try
 				try {
 				
-					// Set request's remove media visibility results from response to false
-					request._removeMediaVisibilityResultsFromResponse = false;
-					
 					// Add ready state change listener to the request
 					request.addEventListener("readystatechange", function() {
 					
 						// Try
 						try {
 						
-							// Check if request is complete, removing media visibility results from its response, and the response contains media visibility results
-							if(this.readyState === 4 && this._removeMediaVisibilityResultsFromResponse === true && this.responseText.indexOf("mediaVisibilityResults") !== -1) {
+							// Check if request is complete and its response should be filtered
+							if(this.readyState === 4 && filterResponse.has(this) === true) {
 							
-								// Parse response as JSON
-								var json = JSON.parse(this.responseText);
+								// Remove request from filter response
+								filterResponse.delete(this);
 								
-								// Remove media visibility results from the JSON
-								removeMediaVisibilityResults(json);
+								// Check if the response contains media visibility results
+								if(this.responseText.indexOf("mediaVisibilityResults") !== -1) {
 								
-								// Get string from the JSON
-								var string = JSON.stringify(json);
-								
-								// Set response to the string
-								Object.defineProperty(this, "response", {
-								
-									// Value
-									value: string
-								});
-								
-								// Set response text to the string
-								Object.defineProperty(this, "responseText", {
-								
-									// Value
-									value: string
-								});
+									// Parse response as JSON
+									var json = JSON.parse(this.responseText);
+									
+									// Remove media visibility results from the JSON
+									removeMediaVisibilityResults(json);
+									
+									// Get string from the JSON
+									var string = JSON.stringify(json);
+									
+									// Set response to the string
+									Object.defineProperty(this, "response", {
+									
+										// Value
+										value: string
+									});
+									
+									// Set response text to the string
+									Object.defineProperty(this, "responseText", {
+									
+										// Value
+										value: string
+									});
+								}
 							}
 						}
 						
@@ -201,8 +206,19 @@
 				// Try
 				try {
 				
-					// Set to remove the media visibility reesults from the request's response if the request is to a GraphQL API
-					this._removeMediaVisibilityResultsFromResponse = url.toString().indexOf("/api/graphql/") !== -1;
+					// Check if request is to a GraphQL API
+					if(url.toString().indexOf("/api/graphql/") !== -1) {
+					
+						// Set that the request's response should be filtered
+						filterResponse.add(this);
+					}
+					
+					// Otherwise
+					else {
+					
+						// Remove request from filter response
+						filterResponse.delete(this);
+					}
 				}
 				
 				// Catch errors
